@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  partner_id: 1
+  category_id: 1
+  partner_category_name: MyString
+
+two:
+  partner_id: 1
+  category_id: 1
+  partner_category_name: MyString

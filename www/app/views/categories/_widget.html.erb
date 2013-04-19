@@ -1,0 +1,57 @@
+<script>
+	jQuery.fn.collapse = function(speed, easing) {
+		
+		if (!speed) var speed = 1000;
+		if (!easing) var easing = "swing";
+		
+		var menu = jQuery(this);
+		
+		menu.children("li").not(".sub").each(function() {
+			
+			var id = jQuery(this).attr("id");
+	
+			jQuery(this).children("dt").click(function() {
+				//menu.children("li.sub").hide();
+				menu.children("li.sub." + id).toggle();
+			});
+			
+			jQuery(this).find("input[type=checkbox]").change(function() {
+				if ( jQuery(this).attr("checked") ) {
+					menu.children("li.sub." + id).find("input[type=checkbox]").attr("checked", true);
+				} else {
+					menu.children("li.sub." + id).find("input[type=checkbox]").attr("checked", false);
+				}
+			});
+			
+		});
+		
+	};
+
+	jQuery(document).ready(function() {
+		
+		jQuery(".category-list").collapse();
+		
+		jQuery(".category-list input:checkbox").change(function() {
+			var category_id = jQuery(this).attr("id");
+			if ( jQuery(this).attr("checked") == "checked" ) {
+				jQuery(".deals > li").each(function() {
+					jQuery(this).find(".category-id#" + category_id).closest(".deals > li").fadeIn(1000);
+				});
+				jQuery.ajax({ url: "/users/" + jQuery("#user_id").attr("value") + "/category?id=" + category_id, type: "PUT" });
+			} else {
+				jQuery(".deals > li").each(function() {
+					jQuery(this).find(".category-id#" + category_id).closest(".deals > li").fadeOut(1000);
+				});
+				jQuery.ajax({ url: "/users/" + jQuery("#user_id").attr("value") + "/category?id=" + category_id, type: "DELETE" });
+			}
+		});
+		
+	});
+</script>
+
+
+<ul class="category-list">
+	<% @categories.each do |category| %>
+		<li id="<%= category.id %>" class="<% if category.id != category.master_category_id %>sub <% end %><%= category.master_category_id %>"><dt><%= category.name %></dt><dd><%= check_box_tag category.id, category.id, logged_in_user.nil? || (!logged_in_user.nil? and logged_in_user.has_category? category.id) %></dd></li>
+	<% end %>
+</ul>

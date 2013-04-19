@@ -1,0 +1,9 @@
+<% content_for :header do %>
+	<h3>Categories for <%= @user.email %></h3>
+<% end %>
+
+<h2 class="first">Categories assigned:</h2>
+<ul><%= render :partial => 'user_category', :collection => @user.categories %></ul>
+<br />
+<h2>Categories available:</h2>
+<ul><%= render :partial => 'user_category', :collection => (@all_categories - @user.categories) %></ul>

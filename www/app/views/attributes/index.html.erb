@@ -1,0 +1,23 @@
+<% content_for :header do %>
+	<h3>Attributes</h3>
+<% end %>
+
+<table id="attributes">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Length</th>
+			<th>Type</th>
+			<th>Group</th>
+			<th>Enabled?</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "attribute", :collection => @attributes %>
+	</tbody>
+</table>
+
+<div class="actions">
+	<%= link_to "new attribute", new_attribute_path, :class => "make-button" %>
+</div>

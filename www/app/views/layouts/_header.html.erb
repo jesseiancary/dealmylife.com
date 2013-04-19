@@ -1,0 +1,75 @@
+	<div class="top-bar">
+		<div class="contents">
+			<div class="site-links">
+				<ul>
+					<% get_pages("header").each do |page| %>
+						<li><span><%= link_to page.title, "/page/" + page.permalink %></span></li>
+					<% end %>
+				</ul>
+			</div>
+			<div class="account-links">
+				<ul>
+					<% if is_logged_in? %>
+						<li class="title"><i><%= link_to "Account: " + logged_in_user.email, show_profile_path, :class => "make-button" %></i></li>
+						<li><%= link_to "Logout", logout_path, :method => :post, :class => "make-button" %></li>
+					<% else %>
+						<li><%= link_to "Register", { :controller => "users", :action => "new" }, :class => "make-button" %></li>
+						<li><%= link_to "Login", login_path, :class => "make-button" %></li>
+					<% end %>					
+				</ul>
+			</div>
+			<!-- AddThis Button BEGIN -->
+			<div class="social-links addthis_toolbox addthis_default_style addthis_32x32_style">
+				<ul>
+					<!--<li><a class="addthis_button_print"></a></li>-->
+					<li><a class="addthis_button_email" addthis:url="http://www.dealmylife.com"></a></li>
+					<li><a class="addthis_button_facebook" addthis:url="http://www.dealmylife.com"></a></li>
+					<li><a class="addthis_button_twitter" addthis:url="http://www.dealmylife.com"></a></li>
+					<li><a class="addthis_button_google_plusone_share" addthis:url="http://www.dealmylife.com"></a></li>
+					<li><a class="addthis_button_pinterest_share" addthis:url="http://www.dealmylife.com"></a></li>
+					<li><a class="addthis_button_compact" addthis:url="http://www.dealmylife.com"></a></li>
+				</ul>
+			</div>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-501612275c2a20e5"></script>
+			<!-- AddThis Button END -->
+			<!--
+			<div class="social-links">
+				<ul>
+					<li><h5>Share:</h5></li>
+					<li>
+						<a id="facebook" name="fb_share" type="icon"></a> 
+						<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript">
+						</script>
+					</li>
+					<li><div class="fb-like" data-href="http://dealmylife.com" data-send="false" data-width="35" data-show-faces="false"></div></li>
+					<li><a id="facebook" href="http://www.facebook.com/sharer.php?u=<%= URI.escape(@url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) %>&t=DealMyLife.com" target="_blank"><span></span></a></li>
+					<li><a id="twitter" href="http://twitter.com/home/?status=DealMyLife.com:%20http://www.dealmylife.com" target="_blank"><span></span></a></li>
+					<li><a id="yahoo" href="http://yahoo.com" target="_blank"><span></span></a></li>
+					<li><a id="google" href="http://google.com" target="_blank"><span></span></a></li>
+					<li><a id="mail" href="mailto:test@test.com" target="_blank"><span></span></a></li>
+				</ul>
+			</div>
+			-->
+		</div>
+	</div>
+	<% if !@url.include? "/users/new" %>
+		<div class="updateaddress">
+			<div class="contents">
+				<div class="form">
+					<%= form_tag index_url, :method => "get" do %>
+						<%= text_field_tag :a, nil, :placeholder => "City, Zip, or Address..." %>
+						<% if is_logged_in? %>
+							OR&nbsp;<%= get_profile_addresses_selectbox :pa_id %>&nbsp;
+						<% end %>
+						<%= submit_tag "Get Deals!", :name => "change_location" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<div class="marquee">
+		<!--<div class="background"></div>-->
+		<%= link_to(index_url) do %>
+			<%= image_tag("/assets/theme/#{@marquee}") %>
+		<% end %>
+	</div>

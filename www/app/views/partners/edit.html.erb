@@ -1,0 +1,15 @@
+<% content_for :header do %>
+	<h3>Edit Partner</h3>
+<% end %>
+
+<ul class="options">
+	<li><%= link_to "Edit Partner Categories", partner_categories_path(@partner) %></li>
+	<li><%= render "system_files/edit" %></li>
+</ul>
+
+<%= render "form" %>
+
+<div class="actions">
+	<%= link_to "Cancel", partners_path, :class => "make-button" %>
+	<%= link_to "Show", @partner, :class => "make-button" %>
+</div>

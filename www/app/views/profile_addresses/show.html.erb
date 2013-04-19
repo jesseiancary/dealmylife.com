@@ -1,0 +1,43 @@
+<% content_for :header do %>
+	<h3><%= @profile_address.label %></h3>
+<% end %>
+
+<p>
+	<b>Street 1:</b>
+	<%= @profile_address.address.street1 %>
+</p>
+
+<p>
+	<b>Street 2:</b>
+	<%= @profile_address.address.street2 %>
+</p>
+
+<p>
+	<b>City:</b>
+	<%= @profile_address.address.city %>
+</p>
+
+<p>
+	<b>State:</b>
+	<%= @profile_address.address.state.name %>
+</p>
+
+<p>
+	<b>Zip:</b>
+	<%= @profile_address.address.zip %>
+</p>
+
+<p>
+	<b>Latitude:</b>
+	<%= @profile_address.address.lat %>
+</p>
+
+<p>
+	<b>Longitude:</b>
+	<%= @profile_address.address.lng %>
+</p>
+
+<div class="actions">
+	<%= link_to 'Back', profile_addresses_path, :class => "make-button" %>
+	<%= link_to 'Edit', edit_profile_address_path, :class => "make-button" %>
+</div>

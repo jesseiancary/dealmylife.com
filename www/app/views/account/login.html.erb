@@ -1,0 +1,34 @@
+<% content_for :header do %>
+	<h3><%= @title %></h3>
+<% end %>
+
+<div id="login">
+	
+	<div class="social-logins">
+		<%= render :partial => "social_logins" %>
+	</div>
+	
+	<div class="login-form">
+		<%= form_for :user, :url => { :action => "authenticate" } do |f| %>
+			<div class="field left">
+				<%= f.text_field :email, { :placeholder => "email address", :autofocus => "autofocus" } %>
+			</div>
+			<div class="field left">
+				<%= f.password_field :password, :placeholder => "password" %>
+			</div>
+			<div class="field actions">
+				<%= submit_tag "login" %>
+			</div>
+			<div class="clear"></div>
+			<div class="field left">
+				<%= f.check_box :remember_me %>
+				<%= f.label :remember_me %>
+			</div>
+		<% end %>
+		<div class="field right">
+			<%= render :partial => "reset_password" %>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+</div>

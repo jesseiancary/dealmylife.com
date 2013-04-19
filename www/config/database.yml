@@ -1,0 +1,23 @@
+login: &login
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: dealmylife
+  password: soochow
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *login
+  database: dealmylife_dev
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+
+test:
+  <<: *login
+  database: dealmylife_test
+
+production:
+  <<: *login
+  database: dealmylife

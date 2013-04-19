@@ -1,0 +1,49 @@
+<% content_for :header do %>
+	<h3><%= @title %></h3>
+<% end %>
+
+<%= form_for(@profile) do |f| %>
+	<% if @profile.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+			<ul>
+			<% @profile.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :first_name %><br />
+		<%= f.text_field :first_name %>
+	</div>
+	<div class="field">
+		<%= f.label :middle_name %><br />
+		<%= f.text_field :middle_name %>
+	</div>
+	<div class="field">
+		<%= f.label :last_name %><br />
+		<%= f.text_field :last_name %>
+	</div>
+	<div class="field">
+		<%= f.label :gender %><br />
+		<%= f.select :gender, options_for_select([["Rather not say"], ["Male", 1], ["Female", 0]]) %>
+	</div>
+	<div class="field">
+		<%= f.label :birthdate %><br />
+		<%= f.date_select :birthdate, :start_year => 1930, :end_year => Date.today.year-18 %>
+	</div>
+	<div class="field">
+		<%= f.label :enabled %><br />
+		<%= f.check_box :enabled %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
+<div class="actions">
+	<%= link_to "Cancel", show_profile_path, :class => "make-button" %>
+</div>

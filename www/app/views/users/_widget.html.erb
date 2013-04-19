@@ -1,0 +1,49 @@
+<ul>
+	<li class="title">Account</li>
+	<% if is_logged_in? %>
+		<li><%= link_to 'Edit Profile', edit_profile_path %></li>
+		<li><%= link_to "Update Password", edit_account_path %></li>
+		<li><%= link_to "Addresses", profile_addresses_path %></li>
+		<li><%= link_to 'Widgets', user_widgets_path(logged_in_user.id) %></li>
+		<li><%= link_to 'Categories', user_categories_path(logged_in_user.id) %></li>
+		<li><%= link_to 'Logout', logout_path, :method => :post %></li>
+	<% else %>
+		<li><%= link_to 'Register', :controller => 'users', :action => 'new' %></li>
+		<li><%= link_to 'Login', :controller => 'account', :action => 'login' %></li>
+	<% end %>					
+</ul>
+
+<% if logged_in_user and logged_in_user.has_role?('administrator') %>
+	<ul>
+		<li class="title">Admin Options</li>
+		<li><%= link_to 'Edit Users', users_path %></li>
+	</ul>	
+<% end %>
+
+<% if logged_in_user and logged_in_user.has_role?('developer') %>
+	<ul>
+		<li class="title">Developer Options</li>
+		<li><%= link_to 'Edit Widgets', widgets_path %></li>
+		<li><%= link_to 'Edit Partners', partners_path %></li>
+		<li><%= link_to 'Edit Categories', categories_path %></li>
+	</ul>	
+<% end %>
+
+<% if logged_in_user and logged_in_user.has_role?('editor') %>
+	<ul>
+		<li class="title">Editor Options</li>
+		<li><%= link_to 'Edit Pages', pages_path %></li>	
+	</ul>	
+<% end %>
+
+<% if logged_in_user and logged_in_user.has_role?('manager') %>
+	<ul>
+		<li class="title">Manager Options</li>
+	</ul>	
+<% end %>
+
+<% if logged_in_user and logged_in_user.has_role?('partner') %>
+	<ul>
+		<li class="title">Partner Options</li>
+	</ul>	
+<% end %>

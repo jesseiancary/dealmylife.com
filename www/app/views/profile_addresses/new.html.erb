@@ -1,0 +1,51 @@
+<% content_for :header do %>
+	<h3><%= logged_in_user.email + ": Add Address" %></h3>
+<% end %>
+
+<%= form_for :profile_address, :url => profile_addresses_path do |f| %>
+	<% if @profile_address.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@profile_address.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+			<ul>
+			<% @profile_address.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<div class="field">
+		<%= label_tag :label %><br />
+		<%= text_field_tag :label %>
+	</div>
+	<%= f.fields_for @profile_address.address do |address| %>
+		<div class="field">
+			<%= address.label :street1 %><br />
+			<%= address.text_field :street1 %>
+		</div>
+		<div class="field">
+			<%= address.label :street2 %><br />
+			<%= address.text_field :street2 %>
+		</div>
+		<div class="field">
+			<%= address.label :city %><br />
+			<%= address.text_field :city %>
+		</div>
+		<div class="field">
+			<%= address.label :state %><br />
+			<%= address.collection_select :state_id, get_states, :id, :name, { :prompt => "Select State" } %>
+		</div>
+		<div class="field">
+			<%= address.label :zip %><br />
+			<%= address.text_field :zip %>
+		</div>
+	<% end %>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
+<div class="actions">
+	<%= link_to 'Cancel', profile_addresses_path, :class => "make-button" %>
+</div>

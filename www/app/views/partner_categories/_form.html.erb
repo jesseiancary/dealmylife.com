@@ -1,0 +1,31 @@
+<%= form_for(@category) do |f| %>
+
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this partner_category from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= f.hidden_field( :partner_id, :value => @partner.id ) %>
+
+  <div class="field">
+    <%= f.label :partner_category_name %><br />
+    <%= f.text_field :partner_category_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :category_id %><br />
+    <%= f.collection_select :category_id, @master_categories, :id, :name, { :prompt => "Select Category" } %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+<% end %>

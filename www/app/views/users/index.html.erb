@@ -1,0 +1,20 @@
+<% content_for :header do %>
+	<h3>Users</h3>
+<% end %>
+
+<table id="users">
+	<thead>
+		<tr>
+			<th>Email</th>
+			<th>Enabled?</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "user", :collection => @users %>
+	</tbody>
+</table>
+
+<div class="actions">
+	<%= link_to "new user", new_user_path, :class => "make-button" %>
+</div>

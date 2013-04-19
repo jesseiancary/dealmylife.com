@@ -1,0 +1,16 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td><%= user.email %></td>
+	<td><%= user.enabled ? 'yes' : 'no' %></td>
+	<td>
+		<%= link_to '[edit]', edit_user_url(user) %>&nbsp;
+		<%= link_to '[roles]', user_roles_url(user.id) %>&nbsp;
+		<% unless user == logged_in_user %>
+			<% if user.enabled %>
+				<%= link_to('[disable]', disable_user_url(user.id), :method => :put) %>
+			<% else %>
+				<%= link_to('[enable]', enable_user_url(user.id), :method => :put) %>&nbsp;
+				<%= link_to '[delete]', user, :method => :delete, :confirm => "Are you sure you want to permanently delete this User from the database?\n\nThis cannot be undone." %>
+			<% end %>
+		<% end %>
+	</td>
+</tr>

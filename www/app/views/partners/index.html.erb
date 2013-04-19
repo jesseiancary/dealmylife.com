@@ -1,0 +1,20 @@
+<% content_for :header do %>
+	<h3>Partners</h3>
+<% end %>
+
+<table id="partners">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Enabled?</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "partner", :collection => @partners %>
+	</tbody>
+</table>
+
+<div class="actions">
+	<%= link_to "new partner", new_partner_path, :class => "make-button" %>
+</div>

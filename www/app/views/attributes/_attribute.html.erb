@@ -1,0 +1,17 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td><%= attribute.name %></td>
+	<td><%= attribute.length %></td>
+	<td><%= attribute.attribute_type.name %></td>
+	<td><%= attribute.attribute_group.name %></td>
+	<td><%= attribute.enabled ? 'yes' : 'no' %></td>
+	<td>
+		<%= link_to '[show]', attribute %>&nbsp;
+		<%= link_to '[edit]', edit_attribute_path(attribute) %>&nbsp;
+		<% if attribute.enabled %>
+			<%= link_to('[disable]', disable_attribute_url(attribute.id), :method => :put) %>
+		<% else %>
+			<%= link_to('[enable]', enable_attribute_url(attribute.id), :method => :put) %>&nbsp;
+			<%= link_to '[delete]', attribute, :method => :delete, :confirm => "Are you sure you want to permanently delete this Attribute from the database?\n\nThis cannot be undone." %>
+		<% end %>
+	</td>
+</tr>

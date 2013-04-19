@@ -1,0 +1,10 @@
+<% content_for :header do %>
+	<h3>Edit Partner Category</h3>
+<% end %>
+
+<%= render 'form' %>
+
+<div class="actions">
+	<%= link_to "Cancel", partner_categories_path(@category.partner_id), :class => "make-button" %>
+	<%= link_to "Show", @category, :class => "make-button" %>
+</div>

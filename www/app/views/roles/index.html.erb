@@ -1,0 +1,9 @@
+<% content_for :header do %>
+	<h3>Roles for <%= @user.email %></h3>
+<% end %>
+
+<h2 class="first">Roles assigned:</h2>
+<ul><%= render :partial => 'role', :collection => @user.roles %></ul>
+
+<h2>Roles available:</h2>
+<ul><%= render :partial => 'role', :collection => (@all_roles - @user.roles) %></ul>

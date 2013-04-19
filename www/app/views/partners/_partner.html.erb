@@ -1,0 +1,14 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td><%= partner.name %></td>
+	<td><%= partner.enabled ? 'yes' : 'no' %></td>
+	<td>
+		<%= link_to '[show]', partner %>&nbsp;
+		<%= link_to '[edit]', edit_partner_path(partner) %>&nbsp;
+		<% if partner.enabled %>
+			<%= link_to('[disable]', disable_partner_url(partner.id), :method => :put) %>
+		<% else %>
+			<%= link_to('[enable]', enable_partner_url(partner.id), :method => :put) %>&nbsp;
+			<%= link_to '[delete]', partner, :method => :delete, :confirm => "Are you sure you want to permanently delete this partner from the database?\n\nThis cannot be undone." %>
+		<% end %>
+	</td>
+</tr>

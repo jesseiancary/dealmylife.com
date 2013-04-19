@@ -1,0 +1,204 @@
+<% content_for :header do %>
+	<% if !@deals.nil? %>
+		<h3>Sort By: <%= @addr %></h3>
+		<ul class="sort">
+			<li><a href="/?s=sold,<%= if @sort == "sold" then if @dir == "asc" then "desc" else "asc" end else "desc" end %>"># Sold</a></li>
+			<li><a href="/?s=remaining,<%= if @sort == "remaining" then if @dir == "asc" then "desc" else "asc" end else "asc" end %>">Time Left</a></li>
+			<li><a href="/?s=value,<%= if @sort == "value" then if @dir == "asc" then "desc" else "asc" end else "asc" end %>">Original Price</a></li>
+			<li><a href="/?s=discountPercent,<%= if @sort == "discountPercent" then if @dir == "asc" then "desc" else "asc" end else "desc" end %>">% Discount</a></li>
+			<li><a href="/?s=discountAmount,<%= if @sort == "discountAmount" then if @dir == "asc" then "desc" else "asc" end else "desc" end %>">$ Savings</a></li>
+			<li><a href="/?s=price,<%= if @sort == "price" then if @dir == "asc" then "desc" else "asc" end else "asc" end %>">Deal Price</a></li>
+		</ul>
+	<% end %>
+<% end %>
+
+<div id="deals">
+	
+	<div class="header">
+		<div class="location">Deals near: <%= session[:address].to_s %></div>
+	
+	<% if @rawdata %>
+		
+			<div class="rawdata"><%= @rawdata %></div>
+		</div>
+		
+	<% elsif @deals %>
+		
+			<%= render :partial => "pager" %>
+		</div>
+	
+		<ul class="deals">
+		<% @deals.each do | deal | %>
+			<li id="<%= deal[:id] %>" <% unless deal[:category].nil? or logged_in_user.nil? or (!logged_in_user.nil? and logged_in_user.has_category? deal[:categoryId]) %>class="hide"<% end %>>
+				<div class="left">
+					<div class="image" rel="zoom"><img src="<%= deal[:imageUrl] %>" width="200px" /></div>
+					<!--<div class="title"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>" target="_blank"><h4><%= deal[:title] %></h4></a></div>-->
+					<div class="title" rel="zoom"><h4><%= deal[:title] %></h4></div>
+					<div class="value">
+						<ul>
+							<li>Discount: <%= deal[:discountPercent] %>%</li>
+							<li>Savings: <%= number_to_currency(deal[:discountAmount]/100) %></li>
+						</ul>
+					</div>
+					<div class="highlights"><%= raw deal[:highlightsHtml] %></div>
+				</div>	
+				
+				<div class="right">
+					<table>
+						<tr><td>
+							<p class="original"><%= number_to_currency(deal[:value]/100) %></p>
+							<p class="price"><%= number_to_currency(deal[:price]/100) %></p>
+						</td></tr>
+						<tr><td>
+							<span class="grab"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>" class="make-button" target="_blank">Grab</a></span>
+						</td></tr>
+						<tr><td>
+							<span class="share">
+								<ul>
+									<!--<li>Share:</li>-->
+									<li>
+										<!-- AddThis Button BEGIN -->
+										<div class="social-links addthis_toolbox addthis_default_style">
+											<ul>
+												<!--<li><a class="addthis_button_print"></a></li>-->
+												<li><a class="addthis_button_email" addthis:url="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>"></a></li>
+												<li><a class="addthis_button_facebook" addthis:url="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>"></a></li>
+												<li><a class="addthis_button_twitter" addthis:url="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>"></a></li>
+												<li><a class="addthis_button_google_plusone_share" addthis:url="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>"></a></li>
+												<li><a class="addthis_button_pinterest_share" addthis:url="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>"></a></li>
+											</ul>
+										</div>
+										<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-501612275c2a20e5"></script>
+										<!-- AddThis Button END -->
+									</li>
+									<!--
+									<li><a href="http://www.facebook.com/share.php?u=<%= @url %>" target="_blank"><span>f</span></a></li>
+									<li><a href="http://twitter.com/home/?status=DealMyLife.com : <%= @url %>" target="_blank"><span>t</span></a></li>
+									-->
+								</ul>
+							</span>
+						</td></tr>
+					</table>
+				</div>
+				
+				<div class="bottom">
+					<table class="details">
+						<tr><td><dt>Deal brought to you by:</dt><dd><%= deal[:partner] %></dd></td></tr>
+						<tr>
+							<td>
+								<% unless deal[:category].nil? %>
+									<dt>Category:</dt><dd id="<%= deal[:categoryId] %>" class="category-id"><%= deal[:category] %></dd>
+								<% end %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<% unless deal[:locations].nil? or deal[:locations].length == 0 or deal[:locations][0][:neighborhood].nil? or deal[:locations][0][:neighborhood].length == 0 %>
+									<dt>Where to find Deal:</dt>
+									<dd>
+										<% if deal[:locations].length > 2 %>
+											Multiple Locations
+										<% else %>
+											<% deal[:locations].each_with_index do | location, i | %>
+												<%= "- " if i != 0 && location[:neighborhood] != "" %><%= location[:neighborhood] %>
+											<% end %>
+										<% end %>
+									</dd>
+								<% end %>
+							</td>
+						</tr>
+					</table>
+					<table class="details">
+						<tr>
+							<td>
+								<% unless deal[:begin].nil? or deal[:begin].length == 0 %>
+									<dt>When Deal was found:</dt><dd><%= format_date deal[:begin] %></dd>
+								<% end %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<% unless deal[:remaining] == 0 %>
+									<dt>Time remaining:</dt><dd><%= deal[:remaining] %> days</dd>
+								<% end %>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<% unless deal[:sold].nil? %>
+									<dt>How many Deals sold:</dt><dd><%= deal[:sold] %></dd>
+								<% end %>
+							</td>
+						</tr>
+					</table>
+					<div class="clear"></div>
+				</div>
+				
+				<!--<button class="make-button show-pitch">More Info</button>-->
+				<div class="pitch"><%= raw deal[:pitchHtml] %></div>
+				
+				<!-- debug -->
+				<div class="hide">
+					<% deal.each do |key, value| %>
+						<span><b><%=h "#{key.to_s}" %>: </b><%=h "#{value.to_s}" %></span><br /><br />
+					<% end %>
+				</div>
+				
+			</li>
+		<% end %>
+		</ul>
+		<div class="footer">
+			<%= render :partial => "pager" %>
+		</div>
+		
+		<script>
+			
+			jQuery(document).ready(function() {
+				
+				jQuery("div[rel='zoom']").click(function()  {
+					var el = jQuery(this).closest("li");
+					el.expose({
+						onBeforeLoad: function() {
+							jQuery("html, body").animate({scrollTop: el.offset().top - 50}, 500);
+							el.animate({marginLeft:-220, marginRight:-10}, 500, function() {
+								el.find(".pitch").slideDown(500);
+							});
+							el.addClass("zoom");
+						},
+						onBeforeClose: function() {
+							el.find(".pitch").slideUp(500, function() {
+								el.animate({marginLeft:0, marginRight:0}, 500);
+							});
+							el.removeClass("zoom");
+						}
+					});
+				});
+				
+				jQuery(".portlet-header .sort li a").addClass("radius-10 asc");
+				jQuery(this).find("#deals .show-pitch").click(function() {
+					if (jQuery(this).hasClass("visible")) {
+						jQuery(this).removeClass("visible").siblings(".pitch").slideUp();
+					} else {
+						jQuery(this).addClass("visible").siblings(".pitch").slideDown();
+					}
+				});
+				
+			});
+			
+			jQuery(window).load(function() {
+				
+				jQuery("#side_left").noScroll({top:50});
+				jQuery("#body_top .portlet-header").noScroll({top:60});
+				
+			});
+	
+		</script>
+		
+	<% else %>
+		
+		<p>We're sorry, no deals were found near the address you provided.</p>
+		<p>Check the spelling of the City you entered, or try searching for deals in a larger, nearby city.</p>
+		
+	<% end %>
+
+</div>

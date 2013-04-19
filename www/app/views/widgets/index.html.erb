@@ -1,0 +1,25 @@
+<% content_for :header do %>
+	<h3>Widgets <%= if @user then "for user: " + @user.email end %></h3>
+<% end %>
+
+<table id="widgets">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<td>Title</td>
+			<% if @user.nil? %>
+				<th>Enabled?</th>
+			<% end %>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "widget", :collection => @widgets %>
+	</tbody>
+</table>
+
+<% if @user.nil? %>
+	<div class="actions">
+		<%= link_to "new widget", new_widget_path, :class => "make-button" %>
+	</div>
+<% end %>

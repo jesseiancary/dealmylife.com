@@ -1,0 +1,15 @@
+<div class="debug">
+	<span class="show_debug" rel="#debug_overlay">[TAKE A DUMP]</span>
+	<div class="overlay" id="debug_overlay">
+		<span class="close">[close]</span>
+		<h2>Debug Dump</h2>
+		<h3>Parameters:</h3>
+		<%= debug(params) %>
+		<h3>Session:</h3>
+		<pre><%= debug(session) %></pre>
+		<h3>User:</h3>
+		<pre><%= debug(logged_in_user) %></pre>
+		<h3>User Widgets:</h3>
+		<pre><%= debug(logged_in_user.widgets) %></pre>
+	</div>
+</div>

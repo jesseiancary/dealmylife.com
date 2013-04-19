@@ -1,0 +1,19 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td><%= page.name %></td>
+	<% if page.enabled %>
+		<td><%= link_to page.permalink, permalink_path(page.permalink) %></td>
+	<% else %>
+		<td><%= page.permalink %></td>
+	<% end %>
+	<td><%= page.enabled ? 'yes' : 'no' %></td>
+	<td>
+		<%= link_to '[show]', page %>&nbsp;
+		<%= link_to '[edit]', edit_page_path(page) %>&nbsp;
+		<% if page.enabled %>
+			<%= link_to('[disable]', disable_page_url(page.id), :method => :put) %>
+		<% else %>
+			<%= link_to('[enable]', enable_page_url(page.id), :method => :put) %>&nbsp;
+			<%= link_to '[delete]', page, :method => :delete, :confirm => "Are you sure you want to permanently delete this Page from the database?\n\nThis cannot be undone." %>
+		<% end %>
+	</td>
+</tr>

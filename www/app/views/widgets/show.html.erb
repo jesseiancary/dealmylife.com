@@ -1,0 +1,28 @@
+<% content_for :header do %>
+	<h3>Widget: <%= @widget.name %></h3>
+<% end %>
+
+<p>
+	<b>Title:</b>
+	<%= @widget.title %>
+</p>
+
+<p>
+	<b>Head:</b>
+	<%= @widget.head %>
+</p>
+
+<p>
+	<b>Content:</b>
+	<%= @widget.content %>
+</p>
+
+<p>
+	<b>Enabled:</b>
+	<%= @widget.enabled %>
+</p>
+
+<div class="actions">
+	<%= link_to "Edit", edit_widget_path(@widget), :class => "make-button" %>
+	<%= link_to "Back", widgets_path, :class => "make-button" %>
+</div>

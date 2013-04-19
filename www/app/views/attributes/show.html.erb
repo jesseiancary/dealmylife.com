@@ -1,0 +1,34 @@
+<% content_for :header do %>
+	<h3>Show Attribute</h3>
+<% end %>
+
+<p>
+  <b>Name:</b>
+  <%= @attribute.name %>
+</p>
+
+<p>
+  <b>Length:</b>
+  <%= @attribute.length %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @attribute.attribute_type.name %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @attribute.attribute_group.name %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%= @attribute.enabled %>
+</p>
+
+
+<div class="actions">
+	<%= link_to 'Edit', edit_attribute_path(@attribute), :class => "make-button" %>
+	<%= link_to 'Back', attributes_path, :class => "make-button" %>
+</div>

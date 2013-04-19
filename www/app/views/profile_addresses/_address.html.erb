@@ -1,0 +1,15 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td><%= address.label %></td>
+	<td><%= address.street1 %></td>
+	<td><%= address.street2 %></td>
+	<td><%= address.city %></td>
+	<td><%= address.state.abbr %></td>
+	<td><%= address.zip %></td>
+	<td>
+		<%= link_to '[show]', profile_address_path( :id => address.id ) %>
+		<%= link_to '[edit]', edit_profile_address_path( :id => address.id ) %>
+		<%= link_to '[delete]', profile_address_path( :id => address.id ), :confirm => 'Are you sure?', :method => :delete %>
+		<%= link_to '[make default]', default_profile_address_path( :id => address.id ) %>
+	</td>
+	<td><%= radio_button_tag(:default, address.default, checked = !address.default.zero?) %> <%= address.default %></td>
+</tr>

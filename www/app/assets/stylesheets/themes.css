@@ -1,0 +1,58 @@
+/* Colors and Effects ==================================================================== */
+
+/* === Radius Effect === */
+.radius-2 { border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px; }
+.radius-5 { border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; }
+.radius-7 { border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; }
+.radius-10 { border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px; }
+.radius-10-top { -moz-border-radius-topleft: 10px; -webkit-border-top-left-radius: 10px; border-top-left-radius: 10px; -moz-border-radius-topright: 10px; -webkit-border-top-right-radius: 10px; border-top-right-radius: 10px;  }
+
+
+
+
+/* === Shadow Effect === */
+.shadow-1 { -webkit-box-shadow: 0 1px 5px #333; -moz-box-shadow: 0 1px 5px #333; box-shadow: 0 1px 5px #333;  }
+.shadow-2 { -webkit-box-shadow: 1px 1px 9px #333; -moz-box-shadow: 1px 1px 9px #333; box-shadow: 1px 1px 9px #333; }
+.shadow-3 { -webkit-box-shadow: 2px 2px 12px #333; -moz-box-shadow: 3px 3px 12px #333; box-shadow: 3px 3px 12px #333; }
+.shadow-4 { -webkit-box-shadow: 3px 3px 15px #333; -moz-box-shadow: 3px 3px 15px #333; box-shadow: 3px 3px 15px #333; }
+
+/* opacity */
+.opaque { position:absolute; left:0; top:0; width:100%; height:100%; background:#1C8BAC; opacity:0.07; filter:alpha(opacity=07);   }
+
+/* === White Theme === */
+
+.color-white .header-container .header,
+.color-white .footer-container .footer,
+.color-white .main > div > div,
+.color-white .sub-block li > .button,
+.color-white .results .grid li a > div { border:1px solid rgba(0, 0, 0, 0); }
+
+/* === Blue Theme === */
+
+body.color-blue { color:#666; }
+.color-blue a,
+.color-blue select,
+.color-blue input { color:#666; }
+.color-blue input[type="text"],
+.color-blue .button,
+.color-blue .sbHolder,
+.color-blue .sbOptions,
+.color-blue .header,
+.color-blue .footer{ border:1px solid rgba(0, 0, 0, 0); }
+.color-blue .header-container .header,
+.color-blue .footer-container .footer { color:#fff;  }
+
+/*** Sidebars ***/
+/* light blue BEC5CA (190, 197, 202) */
+
+/* dark blue ABB1B6 (171, 177, 182) */
+
+/*** Header/Footer ***/
+/* light brown CDC7B7 (205, 199, 183) */
+
+/* dark brown B9B3A5 (185, 179, 165) */
+
+/*** Body ***/
+/* light tan E6E0D2 (230, 224, 210) */
+
+/* dark tan D2CCBF (210, 204, 191) */

@@ -1,0 +1,25 @@
+<div class="pager">
+	<ul>
+		<li class="info">
+			<span>page <%= @page %> of <%= @total_pages %></span>
+		</li>
+		<li class="navigate">
+			<ul>
+				<% if @page-1 > 0 %><li class="prev"><a href="/?p=<%= @page-1 %>&i=<%= @items_per_page %>"><span>back one</span></a></li><% end %>
+				
+				<% if @page-3 > 0 %><li><a href="/?p=<%= @page-3 %>&i=<%= @items_per_page %>"><span><%= @page-3 %></span></a></li><% end %>
+				<% if @page-2 > 0 %><li><a href="/?p=<%= @page-2 %>&i=<%= @items_per_page %>"><span><%= @page-2 %></span></a></li><% end %>
+				<% if @page-1 > 0 %><li><a href="/?p=<%= @page-1 %>&i=<%= @items_per_page %>"><span><%= @page-1 %></span></a></li><% end %>
+				<li><span><%= @page %></span></li>
+				<% if @page+1 <= @total_pages %><li><a href="/?p=<%= @page+1 %>&i=<%= @items_per_page %>"><span><%= @page+1 %></span></a></li><% end %>
+				<% if @page+2 <= @total_pages %><li><a href="/?p=<%= @page+2 %>&i=<%= @items_per_page %>"><span><%= @page+2 %></span></a></li><% end %>
+				<% if @page+3 <= @total_pages %><li><a href="/?p=<%= @page+3 %>&i=<%= @items_per_page %>"><span><%= @page+3 %></span></a></li><% end %>
+				
+				<% if @page+1 <= @total_pages %><li class="next"><a href="/?p=<%= @page+1 %>&i=<%= @items_per_page %>"><span>more deals</span></a></li><% end %>
+			</ul>
+		</li>
+		<li class="items">
+			items / page: <a href="/?p=1&i=10"><span>10</span></a>&nbsp;<a href="/?p=1&i=25"><span>25</span></a>&nbsp;<a href="/?p=1&i=50"><span>50</span></a>
+		</li>
+	</ul>
+</div>

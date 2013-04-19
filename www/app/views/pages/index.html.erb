@@ -1,0 +1,21 @@
+<% content_for :header do %>
+	<h3>Pages</h3>
+<% end %>
+
+<table id="pages">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Permalink</th>
+			<th>Enabled?</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "page", :collection => @pages %>
+	</tbody>
+</table>
+
+<div class="actions">
+	<%= link_to "new page", new_page_path, :class => "make-button" %>
+</div>

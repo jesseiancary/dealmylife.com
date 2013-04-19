@@ -1,0 +1,30 @@
+<% content_for :header do %>
+	<h3><%= @partner.name %> Category Assignments</h3>
+<% end %>
+
+<table id="partner-categories">
+	<thead>
+		<tr>
+			<th>Category</th>
+			<th>Partner Category Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @categories.each do |category| %>
+		<tr>
+			<td><%= category.category.name %></td>
+			<td><%= category.partner_category_name %></td>
+			<td>
+				<%= link_to '[edit]', edit_partner_category_path(@partner, category) %>&nbsp;
+				<%= link_to '[delete]', partner_category_path(@partner, category), :method => :delete, :confirm => "Are you sure you want to permanently delete this Partner Category from the database?\n\nThis cannot be undone." %>
+			</td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<div class="actions">
+	<%= link_to "New Partner Category", new_partner_category_path, :class => "make-button" %>
+	<%= link_to "Cancel", edit_partner_path(@partner), :class => "make-button" %>
+</div>

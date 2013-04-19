@@ -1,0 +1,20 @@
+<% content_for :header do %>
+	<h3>Attribute Groups</h3>
+<% end %>
+
+<table id="attribute_groups">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Enabled?</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => "attribute_group", :collection => @attribute_groups %>
+	</tbody>
+</table>
+
+<div class="actions">
+	<%= link_to "new attribute group", new_attribute_group_path, :class => "make-button" %>
+</div>

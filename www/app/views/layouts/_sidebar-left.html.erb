@@ -1,0 +1,23 @@
+<% if @default_widgets.include? "categories" %>
+	<div class="portlet fixed categories">
+		<div class="portlet-header">
+			<h3>Categories</h3>
+		</div>
+		<div class="portlet-content">
+			<div id="content">
+				<%= render :partial => "categories/widget" %>
+			</div>
+		</div>
+	</div>
+<% elsif @default_widgets.include? "usermenu" %>
+	<div class="portlet fixed usermenu">
+		<div class="portlet-header">
+			<h3>Navigator</h3>
+		</div>
+		<div class="portlet-content">
+			<div id="content">
+				<%= render :partial => "users/widget" %>
+			</div>
+		</div>
+	</div>
+<% end %>

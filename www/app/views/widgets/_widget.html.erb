@@ -1,0 +1,26 @@
+<tr class="<%= cycle('odd', 'even') %>">
+	<td><%= widget.name %></td>
+	<td><%= widget.title %></td>
+	<% if @user %>
+		<td>
+			<% if @user.has_widget?(widget.name) %>
+				<%= link_to '[remove widget]', user_widget_url(:id => widget.id, :user_id => @user.id), :method => :delete, :confirm => "Are you sure you want to revoke this widget?." %>
+			<% else %>
+				<%= link_to '[assign widget]', user_widget_url(:id => widget.id, :user_id => @user.id), :method => :put %>
+			<% end %>
+		</td>
+	<% else %>
+		<td><%= widget.enabled ? 'yes' : 'no' %></td>
+		<td>
+			<%= link_to '[show]', widget %>&nbsp;
+			<%= link_to '[edit]', edit_widget_path(widget) %>&nbsp;
+			<%= link_to '[delete]', widget, :confirm => 'Are you sure?', :method => :delete %>
+			<% if widget.enabled %>
+				<%= link_to('[disable]', disable_widget_url(widget.id), :method => :put) %>
+			<% else %>
+				<%= link_to('[enable]', enable_widget_url(widget.id), :method => :put) %>&nbsp;
+				<%= link_to '[delete]', widget, :method => :delete, :confirm => "Are you sure you want to permanently delete this Widget from the database?\n\nThis cannot be undone." %>
+			<% end %>
+		</td>
+	<% end %>
+</tr>

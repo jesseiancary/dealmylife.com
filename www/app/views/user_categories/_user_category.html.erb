@@ -1,0 +1,8 @@
+<li>
+	<%= user_category.name %>
+	<% if @user.has_category?(user_category.id) %>
+		<%= link_to '[remove category]', user_category_url(:id => user_category.id, :user_id => @user.id), :method => :delete %>
+	<% else %>
+		<%= link_to '[assign category]', user_category_url(:id => user_category.id, :user_id => @user.id), :method => :put %>
+	<% end %>
+</li>

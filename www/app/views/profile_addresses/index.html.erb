@@ -1,0 +1,28 @@
+<% content_for :header do %>
+	<h3><%= logged_in_user.email + ": Addresses" %></h3>
+<% end %>
+
+<%#= form_tag :url => default_profile_address_path do %>
+	<table id="addresses">
+		<thead>
+			<tr>
+				<th>Label</th>
+				<th>Street 1</th>
+				<th>Street 2</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Zip</th>
+				<th>Actions</th>
+				<th>Default</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%= render :partial => "address", :collection => @profile_address %>
+		</tbody>
+	</table>
+	
+	<div class="actions">
+		<%= link_to "Add Address", new_profile_address_path, :class => "make-button" %>
+		<%= submit_tag "Make Default" %>
+	</div>
+<%# end %>

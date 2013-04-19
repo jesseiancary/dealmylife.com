@@ -1,0 +1,30 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DealMyLife.com</title>
+<meta property="og:description" content="All your local daily deals in one place, at one time, 50% - 90% off of life's great offers!" />
+
+<meta property="og:title" content="DealMyLife.com" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%= @host %>" />
+<meta property="og:image" content="<%= @host %>/assets/theme/logo_md.png" />
+<meta property="og:site_name" content="DealMyLife.com" />
+<meta property="fb:admins" content="663260149" />
+
+<%= stylesheet_link_tag "application" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+
+<link href="http://fonts.googleapis.com/css?family=Maven+Pro:400,700&v2" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Jura:400,600" rel="stylesheet" type="text/css">
+<link href="<%= @host + '/assets/theme/favicon.png' %>" rel="shortcut icon" type="image/x-icon">
+
+<% if logged_in_user %>
+	<% logged_in_user.widgets.each do |widget| %>
+		<%= render :inline => widget.head.html_safe %>
+	<% end %>
+<% end %>
+
+<script type="text/javascript">
+
+	// Google Analytics
+	
+</script>

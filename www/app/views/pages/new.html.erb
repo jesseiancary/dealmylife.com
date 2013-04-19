@@ -1,0 +1,70 @@
+<% content_for :header do %>
+	<h3>New Page</h3>
+<% end %>
+
+<%= form_for(@page) do |f| %>
+	<% if @page.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+			<ul>
+			<% @page.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="field">
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">
+		<%= f.label :title %><br />
+		<%= f.text_field :title %>
+	</div>
+	<div class="field">
+		<%= f.label :permalink %><br />
+		<%= f.text_field :permalink %>
+	</div>
+	<div class="field">
+		<%= f.label :location %><br />
+		<%= f.collection_select :location, get_locations, :location, :location, { :include_blank => '[create new]' } %>
+		<span class="location-select">&rArr;&nbsp;<%= f.text_field :location %></span>
+		<script>
+			jQuery(document).ready(function() {
+				jQuery("form.edit_page").submit(function() {
+					var select = jQuery(this).find("select#page_location").val();
+					if (select.length > 0)
+						jQuery(this).find("input#page_location").val(select);
+				});
+				jQuery("form.edit_page select#page_location").change(function() {
+					if (jQuery(this).val().length > 0)
+						jQuery(this).siblings(".location-select").hide();
+					else
+						jQuery(this).siblings(".location-select").show();
+				});
+				jQuery("form.edit_page select#page_location").each(function() {
+					if (jQuery(this).val().length > 0)
+						jQuery(this).siblings(".location-select").hide();
+				});
+					
+			});
+		</script>
+	</div>
+	<div class="field">
+		<%= f.label :order %><br />
+		<%= f.text_field :order %>
+	</div>
+	<div class="field">
+		<%= f.label :content %><br />
+		<%= f.text_area :content %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end %>
+
+<div class="actions">
+	<%= link_to "Cancel", pages_path, :class => "make-button" %>
+</div>

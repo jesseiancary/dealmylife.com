@@ -1,0 +1,30 @@
+<% content_for :header do %>
+	<h3><%= @title %></h3>
+<% end %>
+
+<div class="details">
+	<p>
+		<b>First name:</b>
+		<%= @profile.first_name %>
+	</p>
+	
+	<p>
+		<b>Middle name:</b>
+		<%= @profile.middle_name %>
+	</p>
+	
+	<p>
+		<b>Last name:</b>
+		<%= @profile.last_name %>
+	</p>
+	
+	<p>
+		<b>Gender:</b>
+		<%= if @profile.gender then "Male" else "Female" end %>
+	</p>
+	
+	<p>
+		<b>Birthdate:</b>
+		<%= @profile.birthdate %>
+	</p>
+</div>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<%= render(:partial => "layouts/head") %>
+</head>
+
+<body>
+	<div id="fb-root"></div>
+	<script>
+	  /*
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '165852260160527', // App ID
+	      channelUrl : '//dealmylife.com/channel.html', // Channel File
+	      status     : true, // check login status
+	      cookie     : true, // enable cookies to allow the server to access the session
+	      xfbml      : true  // parse XFBML
+	    });
+	
+	    // Additional initialization code here
+	  };
+	
+	  // Load the SDK Asynchronously
+	  (function(d){
+	     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+	     js = d.createElement('script'); js.id = id; js.async = true;
+	     js.src = "//connect.facebook.net/en_US/all.js";
+	     d.getElementsByTagName('head')[0].appendChild(js);
+	   }(document));
+	   */
+	</script>
+	<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=165852260160527";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<% if logged_in_user %>
+		<div id="user_id" style="display:none;" value="<%= logged_in_user.id %>"></div>
+	<% end %>
+	
+	<div id="wrapper" class="<%= @layout %>">
+		
+		<div id="header">
+			<%= render(:partial => "layouts/header") %>
+			<div class="clear"></div>
+		</div>
+		
+		<div id="main">
+			
+			<% #if @layout.include? "left" or @layout.include? "three" %>
+				<div id="side_left" class="portlet-container">
+					<!-- add default widgets -->
+					<%= render :partial => "layouts/sidebar-left" %>
+					<% if logged_in_user %>
+						<%= render :partial => "layouts/widget", :collection => logged_in_user.user_widgets.sort_by(&:order), :as => :widget, :locals => { :container => "side_left" } %>
+					<% end %>
+				</div>
+			<% #end %>
+			
+			<div id="body">
+			
+				<% if flash[:notice] %>
+					<p id="notice"><%= flash[:notice] %></p>
+				<% end %>
+				<% if flash[:error] %>
+					<script type="text/javascript">
+						jQuery(document).ready(function(){
+							alert("<%= flash[:error] %>");
+						});
+					</script>
+					<!--<p id="error"><%= flash[:error] %></p>-->
+				<% end %>
+				
+				<div id="body_top" class="portlet-container">
+					<%= render(:partial => "layouts/body-top") %>
+					<% if logged_in_user %>
+						<%= render :partial => "layouts/widget", :collection => logged_in_user.user_widgets.sort_by(&:order), :as => :widget, :locals => { :container => "body_top" } %>
+					<% end %>
+				</div>
+				<div class="clear"></div>
+			
+				<div id="body_left" class="portlet-container">
+					<!-- add default widgets -->
+					<%= render :partial => "layouts/body-left" %>
+					<% if logged_in_user %>
+						<%= render :partial => "layouts/widget", :collection => logged_in_user.user_widgets.sort_by(&:order), :as => :widget, :locals => { :container => "body_left" } %>
+					<% end %>
+				</div>
+			
+				<div id="body_right" class="portlet-container">
+					<!-- add default widgets -->
+					<%= render :partial => "layouts/body-right" %>
+					<% if logged_in_user %>
+						<%= render :partial => "layouts/widget", :collection => logged_in_user.user_widgets.sort_by(&:order), :as => :widget, :locals => { :container => "body_right" } %>
+					<% end %>
+				</div>
+			</div>
+			
+			<% #if @layout.include? "right" or @layout.include? "three" %>
+				<div id="side_right" class="portlet-container">
+					<!-- add default widgets -->
+					<%= render :partial => "layouts/sidebar-right" %>
+					<% if logged_in_user %>
+						<%= render :partial => "layouts/widget", :collection => logged_in_user.user_widgets.sort_by(&:order), :as => :widget, :locals => { :container => "side_right" } %>
+					<% end %>
+				</div>
+			<% #end %>
+			
+		</div>
+		<div class="clear"></div>
+		
+	</div>
+	
+	<div id="footer">
+		<%= render(:partial => "layouts/footer") %>
+		<div class="clear"></div>
+	</div>
+	
+	<% if Rails.env.development? && logged_in_user and logged_in_user.has_role?("developer") %>
+		<%= render :partial => "layouts/debug" %>
+	<% end %>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(".editlink[rel]").overlay({
+			mask: {
+				color: '#000',
+				loadSpeed: 200,
+				opacity: 0.8
+			},
+			top: 100
+		});
+	});
+</script>
+
+<div class="systemfile">
+	Edit System File: <a class="editlink" href="javascript:void(0);" rel="#editcontainer1"><%= @file.fullpath %></a>
+	<div id="editcontainer1" class="editcontainer">
+		<%= form_tag updatefile_path, :method => "put" do %>
+			<div class="field">
+				<%= label_tag :content, @file.fullpath %><br />
+				<%= text_area_tag :content, @file.contents %>
+			</div>
+			<div class="actions">
+				<%= link_to "Cancel", "javascript:void(0);", :class => "close make-button" %>
+				<%= submit_tag "Save File" %>
+			</div>
+		<% end %>
+	</div>
+</div>

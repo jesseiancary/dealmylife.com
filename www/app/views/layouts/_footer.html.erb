@@ -1,0 +1,19 @@
+<div class="contents">
+	<div class="col-left">
+		<div class="site-links">
+			<ul>
+				<% get_pages("footer").each do |page| %>
+					<li><span><%= link_to page.title, '/page/' + page.permalink %></span></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+	<!--
+	<div class="col-mid">
+		<div class="contact"><span><a href="mailto:admin@dealmylife.com">contact</a></span></div>
+	</div>
+	-->
+	<div class="col-right">
+		<div class="copyright"><span>&copy;2011 All Rights Reserved</span></div>
+	</div>
+</div>

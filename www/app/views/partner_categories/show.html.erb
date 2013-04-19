@@ -1,0 +1,24 @@
+<% content_for :header do %>
+	<h3>Partner Category</h3>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Partner:</b>
+  <%= @category.partner_id %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @category.category_id %>
+</p>
+
+<p>
+  <b>Partner category name:</b>
+  <%= @category.partner_category_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_partner_category_path(@category) %> |
+<%= link_to 'Back', partner_categories_path(@category.partner_id) %>
