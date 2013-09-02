@@ -141,6 +141,35 @@ jQuery.fn.shade = function(params) {
 	
 };
 
+jQuery.fn.zoom = function(params) {
+	
+	jQuery(this).not(".zoomable").each(function() {
+		
+		var el = jQuery(this);
+		el.addClass("zoomable");
+		
+		el.find(".image").click(function()  {
+			el.expose({
+				onBeforeLoad: function() {
+					jQuery("html, body").animate({scrollTop: el.offset().top - 100}, 500);
+					el.animate({marginLeft:-220, marginRight:-10}, 500, function() {
+						el.find(".pitch").slideDown(500);
+					});
+					el.addClass("zoom");
+				},
+				onBeforeClose: function() {
+					el.find(".pitch").slideUp(500, function() {
+						el.animate({marginLeft:0, marginRight:0}, 500);
+					});
+					el.removeClass("zoom");
+				}
+			});
+		});
+	
+		
+	});
+}
+
 jQuery.fn.excerpt = function(params) {
 	
 	this.each(function() {

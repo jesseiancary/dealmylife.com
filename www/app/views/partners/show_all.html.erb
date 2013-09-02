@@ -30,12 +30,12 @@
 		
 		<ul class="deals">
 		<% @deals.each do | deal | %>
-			<li id="<%= deal[:id] %>" <% unless deal[:category].nil? or logged_in_user.nil? or (!logged_in_user.nil? and logged_in_user.has_category? deal[:categoryId]) %>class="hide"<% end %>>
+			<li id="<%= deal[:id] %>" <% unless deal[:category].nil? or logged_in_user.nil? or (!logged_in_user.nil? and logged_in_user.has_category? deal[:categoryId]) %>class="hide"<% end %>class="zoom">
 				<div class="left-col">
 					<table class="layout">
 						<tr>
 							<td width="220px">
-								<div class="image" rel="zoom"><img src="<%= deal[:imageUrl] %>" width="200px" /></div>
+								<div class="image"><img src="<%= deal[:imageUrl] %>" width="200px" /></div>
 							</td>
 							<td class="center">
 								<!--<div class="title"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>" target="_blank"><h4><%= deal[:title] %></h4></a></div>-->
@@ -169,24 +169,7 @@
 			
 			jQuery(document).ready(function() {
 				
-				jQuery("div[rel='zoom']").click(function()  {
-					var el = jQuery(this).closest("li");
-					el.expose({
-						onBeforeLoad: function() {
-							jQuery("html, body").animate({scrollTop: el.offset().top - 100}, 500);
-							el.animate({marginLeft:-220, marginRight:-10}, 500, function() {
-								el.find(".pitch").slideDown(500);
-							});
-							el.addClass("zoom");
-						},
-						onBeforeClose: function() {
-							el.find(".pitch").slideUp(500, function() {
-								el.animate({marginLeft:0, marginRight:0}, 500);
-							});
-							el.removeClass("zoom");
-						}
-					});
-				});
+				jQuery(".zoom").zoom();
 				
 				jQuery(".portlet-header .sort li a").addClass("radius-10 asc");
 				jQuery(this).find("#deals .show-pitch").click(function() {

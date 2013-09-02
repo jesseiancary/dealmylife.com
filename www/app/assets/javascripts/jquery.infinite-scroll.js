@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
 			
 			scroll = false;
 			this_container.append( "<div class='loading'><img src='" + settings.loading + "' /></div>" );
+			
 			jQuery.ajax({
 				type: "GET",
 				url: next_url[0],
@@ -28,12 +29,14 @@ jQuery(document).ready(function() {
 			}).done(function(data) {
 				this_container.find(".loading").remove();
 				this_container.append( jQuery(data).find(settings.container).html() );
+				this_container.find(".zoom").zoom();
 				jQuery(".make-button").button();
 				//jQuery(".products-grid").applyStyleGrid();
 				more_content = jQuery(data).find(settings.next).length;
 				if ( more_content ) { next_url = jQuery(data).find(settings.next).attr("href").split("?"); }
 				scroll = true;
 			});
+			
 		}
 	});
 	
