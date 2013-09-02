@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <h1>Welcome to example.com, <%= @user.profile.first_name %></h1>
-    <p>
-      You have successfully signed up to example.com,
-      your username is: <%= @user.email %>.<br/>
-    </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
-  </body>
-</html>
+<%= render :partial => "header" %>
+	<h1>Welcome to <%= @site %>!</h1>
+	<p>
+		Your username is: <%= @user.email %>.
+	</p>
+	<p>
+		To login to the site, just follow this link: <a href="<%= 'http://' + @site + @login_path %>" style="color:#1c8bac; text-decoration:none;"><%= 'http://' + @site + @login_path %></a>
+	</p>
+	<br /><br />
+	<p>If you have any questions, please contact us!</p>
+	<h4><a href="mailto:<%= @email %>" style="color:#1c8bac; text-decoration:none;"><%= @email %></a></h4>
+	<br /><br />
+<%= render :partial => "footer" %>
