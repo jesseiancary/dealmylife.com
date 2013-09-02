@@ -18,3 +18,5 @@ pickle-email-*.html
 .project
 .svn
 .git
+*.sublime*
+sftp-config.json
