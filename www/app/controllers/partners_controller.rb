@@ -104,7 +104,7 @@ class PartnersController < ApplicationController
     @categories = Category.select("id, name, ifnull(master_category_id, id) as master_category_id").order(:master_category_id, 1)
     
     ### if user enters a text address
-    if params[:change_location] && params[:a] && !params[:a].empty?
+    if params[:a] && !params[:a].empty?
       
       new_address = Address.new
       new_address = new_address.geocode params[:a]
@@ -131,13 +131,11 @@ class PartnersController < ApplicationController
       
     end
     
-    if ( !new_address.nil? && new_address.id != ( session[:address].try(:id) || 0 ) ) # || params[:reinit]
-      if params[:test]
-        @rawdata = @partner.get_raw_data session[:address] = new_address
-      else
-        session[:deals] = []
-        session[:deals] += @partner.get_deals session[:address] = new_address
-      end
+    if params[:test]
+      @rawdata = @partner.get_raw_data session[:address] = new_address
+    else
+      session[:deals] = []
+      session[:deals] += @partner.get_deals session[:address] = new_address
     end
     
     unless session[:deals].nil?
