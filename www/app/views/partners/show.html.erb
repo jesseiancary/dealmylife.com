@@ -26,31 +26,38 @@
 		
 			<%= render :partial => "pager" %>
 		</div>
-	
+		
 		<ul class="deals">
 		<% @deals.each do | deal | %>
-			<li id="<%= deal[:id] %>" <% unless deal[:category].nil? or logged_in_user.nil? or (!logged_in_user.nil? and logged_in_user.has_category? deal[:categoryId]) %>class="hide"<% end %>>
-				<div class="left">
-					<div class="image" rel="zoom"><img src="<%= deal[:imageUrl] %>" width="200px" /></div>
-					<!--<div class="title"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>" target="_blank"><h4><%= deal[:title] %></h4></a></div>-->
-					<div class="title" rel="zoom"><h4><%= deal[:title] %></h4></div>
-					<div class="value">
-						<ul>
-							<li>Discount: <%= deal[:discountPercent] %>%</li>
-							<li>Savings: <%= number_to_currency(deal[:discountAmount]/100) %></li>
-						</ul>
-					</div>
-					<div class="highlights"><%= raw deal[:highlightsHtml] %></div>
+			<li id="<%= deal[:id] %>" <% unless deal[:category].nil? or logged_in_user.nil? or (!logged_in_user.nil? and logged_in_user.has_category? deal[:categoryId]) %>class="hide"<% end %>class="zoom">
+				<div class="left-col">
+					<table class="layout">
+						<tr>
+							<td width="220px">
+								<div class="image"><img src="<%= deal[:imageUrl] %>" width="200px" /></div>
+							</td>
+							<td class="center">
+								<!--<div class="title"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>" target="_blank"><h4><%= deal[:title] %></h4></a></div>-->
+								<div class="title" rel="zoom"><h4><%= deal[:title] %></h4></div>
+								<div class="value">
+									<ul>
+										<li>Discount: <%= deal[:discountPercent] %>%</li>
+										<li>Savings: <%= number_to_currency(deal[:discountAmount]/100) %></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</table>
 				</div>	
 				
-				<div class="right">
+				<div class="right-col">
 					<table>
 						<tr><td>
 							<p class="original"><%= number_to_currency(deal[:value]/100) %></p>
 							<p class="price"><%= number_to_currency(deal[:price]/100) %></p>
 						</td></tr>
 						<tr><td>
-							<span class="grab"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) %>" class="make-button" target="_blank">Grab</a></span>
+							<span class="grab"><a href="<%= click_url + "?redirect=" + url_encode(deal[:dealUrl]) + "&partner=" + deal[:partner_id].to_s %>" class="make-button" target="_blank">Grab</a></span>
 						</td></tr>
 						<tr><td>
 							<span class="share">
@@ -111,22 +118,24 @@
 					<table class="details">
 						<tr>
 							<td>
-								<% unless deal[:begin].nil? or deal[:begin].length == 0 %>
-									<dt>When Deal was found:</dt><dd><%= format_date deal[:begin] %></dd>
-								<% end %>
+								<% # unless deal[:begin].nil? or deal[:begin].length == 0 %>
+									<dt>Discovered:</dt><dd><%= format_date deal[:begin] %></dd>
+								<% # end %>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<% unless deal[:remaining] == 0 %>
-									<dt>Time remaining:</dt><dd><%= deal[:remaining] %> days</dd>
+								<% unless deal[:remaining] <= 0 %>
+									<dt>Time Left:</dt><dd><%= deal[:remaining] %> days</dd>
+								<% else %>
+									<dt>Time Left:</dt><dd>Expiring Soon!</dd>
 								<% end %>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<% unless deal[:sold].nil? %>
-									<dt>How many Deals sold:</dt><dd><%= deal[:sold] %></dd>
+									<dt>Deals Sold:</dt><dd><%= deal[:sold] %></dd>
 								<% end %>
 							</td>
 						</tr>
@@ -135,7 +144,11 @@
 				</div>
 				
 				<!--<button class="make-button show-pitch">More Info</button>-->
-				<div class="pitch"><%= raw deal[:pitchHtml] %></div>
+				<div class="pitch">
+					<p><%= raw deal[:description] %></p>
+					<div class="highlights"><p><%= raw deal[:highlightsHtml] %></p></div>
+					<p><%= raw deal[:pitchHtml] %></p>
+				</div>
 				
 				<!-- debug -->
 				<div class="hide">
@@ -150,29 +163,12 @@
 		<div class="footer">
 			<%= render :partial => "pager" %>
 		</div>
-		
+	
 		<script>
 			
 			jQuery(document).ready(function() {
 				
-				jQuery("div[rel='zoom']").click(function()  {
-					var el = jQuery(this).closest("li");
-					el.expose({
-						onBeforeLoad: function() {
-							jQuery("html, body").animate({scrollTop: el.offset().top - 50}, 500);
-							el.animate({marginLeft:-220, marginRight:-10}, 500, function() {
-								el.find(".pitch").slideDown(500);
-							});
-							el.addClass("zoom");
-						},
-						onBeforeClose: function() {
-							el.find(".pitch").slideUp(500, function() {
-								el.animate({marginLeft:0, marginRight:0}, 500);
-							});
-							el.removeClass("zoom");
-						}
-					});
-				});
+				jQuery(".zoom").zoom();
 				
 				jQuery(".portlet-header .sort li a").addClass("radius-10 asc");
 				jQuery(this).find("#deals .show-pitch").click(function() {
@@ -187,8 +183,7 @@
 			
 			jQuery(window).load(function() {
 				
-				jQuery("#side_left").noScroll({top:50});
-				jQuery("#body_top .portlet-header").noScroll({top:60});
+				jQuery("#side_left, #body_top .portlet-header").noScroll();
 				
 			});
 	
@@ -198,7 +193,7 @@
 		
 		<p>We're sorry, no deals were found near the address you provided.</p>
 		<p>Check the spelling of the City you entered, or try searching for deals in a larger, nearby city.</p>
-		
+	
 	<% end %>
 
 </div>
