@@ -67,8 +67,8 @@ class PartnersController < ApplicationController
       if params[:s] && !params[:s].empty?
         @page = 1
         @items_per_page = 5
-        @sort = params[:s].split(",")[0]
-        @dir = params[:s].split(",")[1]
+        @sort = params[:s].split(",")[0] || "remaining"
+        @dir = params[:s].split(",")[1] || "asc"
         if @dir == "asc" then
           session[:deals].sort! do |a,b| a[@sort.to_sym] <=> b[@sort.to_sym] end
           #session[:deals].sort! do |a| a[@sort.to_sym] end
@@ -150,8 +150,8 @@ class PartnersController < ApplicationController
       if params[:s] && !params[:s].empty?
         @page = 1
         @items_per_page = 5
-        @sort = params[:s].split(",")[0]
-        @dir = params[:s].split(",")[1]
+        @sort = params[:s].split(",")[0] || "remaining"
+        @dir = params[:s].split(",")[1] || "asc"
         if @dir == "asc" then
           session[:deals].sort! { |a,b| a[@sort.to_sym] <=> b[@sort.to_sym] }
         elsif @dir == "desc" then
