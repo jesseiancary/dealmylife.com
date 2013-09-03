@@ -1,6 +1,6 @@
-if [[ -s "/home/jesse/.rvm/environments/ruby-1.9.3-p194@dealmylife" ]] ; then
-  . "/home/jesse/.rvm/environments/ruby-1.9.3-p194@dealmylife"
-elif [[ -s "/usr/local/rvm/environments/ruby-1.9.3-p194@dealmylife" ]] ; then
-  . "/usr/local/rvm/environments/ruby-1.9.3-p194@dealmylife"
-  rvm --create use  "ruby-1.9.3-p194@dealmylife"
+if [[ -s "/home/jesse/.rvm/environments/ruby-1.9.3-p194@dealmylife_dev" ]] ; then
+  . "/home/jesse/.rvm/environments/ruby-1.9.3-p194@dealmylife_dev"
+elif [[ -s "/usr/local/rvm/environments/ruby-1.9.3-p194@dealmylife_dev" ]] ; then
+  . "/usr/local/rvm/environments/ruby-1.9.3-p194@dealmylife_dev"
+  rvm --create use  "ruby-1.9.3-p194@dealmylife_dev"
 fi
