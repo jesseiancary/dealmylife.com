@@ -41,7 +41,7 @@ module Api
               
               if !deal.elements["image-url"].text.nil?
                 
-                locations = Array.new
+                locations = []
                 l = {
                   :neighborhood => "",
                   :address1 => "",

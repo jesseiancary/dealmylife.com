@@ -5,7 +5,6 @@ module Api
   
   class Deals
     attr_accessor :deals
-    #protected
     
     def initialize(partner, address)
       @partner = partner

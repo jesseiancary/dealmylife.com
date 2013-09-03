@@ -1,12 +1,10 @@
 require "open-uri"
 require "json"
-#require "date"
 
 module Api
   
   class Deals
     attr_accessor :deals
-    #protected
     
     def initialize(partner, address)
       @partner = partner
@@ -19,7 +17,7 @@ module Api
       response = @uri.open
       raise "web service error" if response.status.first != "200"
       
-      return JSON.parse response.read
+      @deals = JSON.parse response.read
       
     end
     

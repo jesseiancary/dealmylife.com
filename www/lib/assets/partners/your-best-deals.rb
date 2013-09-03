@@ -10,7 +10,6 @@ module Api
       @partner = partner
       @uri = URI.parse("#{partner.url}?r=#{partner.key}&location=#{address.city.gsub " ", "+"}")
       @deals = []
-      puts @uri
     end
   
     def get_raw_data

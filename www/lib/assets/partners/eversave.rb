@@ -37,7 +37,7 @@ module Api
     # REQUIRED
     #
     def get_raw_data
-        @raw_data = Feedzirra::Feed.fetch_and_parse("#{@url}").sanitize_entries!
+        @deals = Feedzirra::Feed.fetch_and_parse("#{@url}").sanitize_entries!
     end
     
     #
